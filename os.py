@@ -1,5 +1,5 @@
 import os
- 
-a = os.listdir("Python")
+
+print(os.getcwd())      
+a = os.listdir()        
 print(a)
-print(os.getcwd)
