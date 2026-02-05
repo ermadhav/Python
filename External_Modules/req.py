@@ -5,4 +5,6 @@
 #     f.write(r.text)
 
 import re
-text = "Madhav is a genius Boy, who loves space and coding"
+text = "Madhav is a genius Boy,Madhav loves space and coding"
+matches = re.findall("Madhav", text, re.IGNORECASE)
+print(matches)
