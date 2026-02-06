@@ -78,9 +78,9 @@
 
 # import requests
 # query = input("what type of news you are interested in today? ")
-# api = 'a1d43f4321ef488ca7d5a9f4bd49644f'
+# api = 'your_api_key'
 
-# url = f"https://newsapi.org/v2/everything?q={query}&from=2026-01-06&sortBy=publishedAt&apiKey=a1d43f4321ef488ca7d5a9f4bd49644f"
+# url = f"https://newsapi.org/v2/everything?q={query}&from=2026-01-06&sortBy=publishedAt&apiKey=Your_api_key"
 
 # r = requests.get(url)
 # data = r.json()
