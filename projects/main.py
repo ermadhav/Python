@@ -70,6 +70,6 @@ for i in range (0,n):
 for pdf in pdfs:
     merger.append(pdf)
 
-name = input("Enter the name of merged pdf you want")
+name = input("Enter the name of merged pdf you want: ")
 merger.write(f"{name}.pdf")
 merger.close()
