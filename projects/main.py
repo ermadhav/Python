@@ -72,4 +72,5 @@ for pdf in pdfs:
 
 name = input("Enter the name of merged pdf you want: ")
 merger.write(f"{name}.pdf")
+print("{name}.pdf id downloaded")
 merger.close()
