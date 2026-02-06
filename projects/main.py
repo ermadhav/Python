@@ -82,7 +82,7 @@ api = 'a1d43f4321ef488ca7d5a9f4bd49644f'
 
 url = f"https://newsapi.org/v2/everything?q={query}&from=2026-01-06&sortBy=publishedAt&apiKey=a1d43f4321ef488ca7d5a9f4bd49644f"
 
-print(url)
+# print(url)
 r = requests.get(url)
 data = r.json()
 articles = data["articles"]
