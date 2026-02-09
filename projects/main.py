@@ -118,3 +118,10 @@
 # if __name__ == "__main__":
 #     files = os.listdir()
 #     arrange_files(files, ".jpg")
+
+# Project :- 6
+
+import qrcode
+
+url = input("Enter Your URL: ")
+filename = input("Enter the filename you want to save it as: ")
