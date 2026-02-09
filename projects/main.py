@@ -99,4 +99,4 @@ while True:
     print("Pani Pi Le MC: ")
     notification.notify(title="Pani pi na MC",
                         message = "You need to drink water",)
-    time.sleep(60)
+    time.sleep(1)
