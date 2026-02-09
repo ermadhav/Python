@@ -112,7 +112,7 @@ def arrange_files(files, ext):
     if not(os.path.exists("images")):
         os.mkdir("images")
     
-    for i,file in enumerate(files_with_text):
+    for i,file in enumerate(files_with_ext):
         os.rename(file, f"images/photo-{i+1}{ext}")
 
 if __name__ == "__main__":
