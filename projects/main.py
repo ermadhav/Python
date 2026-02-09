@@ -103,3 +103,7 @@
 
 # Project :- 5
 
+import os
+
+def arrange_files(files, ext):
+    files_with_ext = 
