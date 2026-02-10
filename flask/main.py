@@ -7,15 +7,15 @@ def home():
     return render_template("home.html")
 
 @app.route("/services")
-def home():
-    return render_template("home.html")
+def services():
+    return render_template("services.html")
 
 @app.route("/contact")
-def home():
-    return render_template("home.html")
+def contact():
+    return render_template("contact.html")
 
 @app.route("/about")
-def home():
-    return render_template("home.html")
+def about():
+    return render_template("about.html")
 
-app.run
+app.run(debug=True)
