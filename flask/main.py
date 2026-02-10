@@ -1,8 +1,9 @@
-import flask    
+from flask import Flask
 
 app = Flask(__name__)
 
-# Define a route for the root URL
 @app.route("/")
-def home():
-return "Hello, Flask!"
+def hello_world():
+    return "<p>Hello, World!</p>"
+
+app.run(debug = True)
