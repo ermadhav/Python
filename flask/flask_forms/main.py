@@ -1,7 +1,11 @@
-from flask import Flask
+from flask import Flask,request, render_template
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def hello_world():
-    return "<p>Hello, World!</p>"
+    print(request.method)
+    print(request.form)
+    return render_template("contact.html")
+
+app.run(debug=True)
