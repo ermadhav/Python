@@ -9,6 +9,7 @@ def hello_world():
         "Mahi":40,
         "Anisha": 35,
         "Tanishq": 20,
+        "Arpita": 35
     }
     return render_template("index.html", marks = marks)
 app.run(debug = True)

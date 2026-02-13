@@ -6,10 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <ul> }
+    <ul>
 
     {% for key in marks.keys() %}
-    <li>the marks of {{ key }} is {{ marks.get(key) }}</li>
+    {% if marks.get(key) > 35 %}
+    <li>the marks of {{ key }} is {{ marks.get(key) }}</li>    
+    {% endif %}
+    
     {% endfor %}
 
 
