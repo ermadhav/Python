@@ -1,9 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World!</p>"
-
+    marks={
+        "Madhav": 45,
+        "Mahi":40,
+        "Anisha": 35,
+        "Tanishq": 20,
+    }
+    return render_template("index.html", marks = marks)
 app.run(debug = True)
