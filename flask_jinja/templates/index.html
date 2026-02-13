@@ -7,9 +7,10 @@
 </head>
 <body>
     <ul> 
-    {% for key in marks.key %}
-        {{key}}
-    {% endfor %}
+    {% for key in marks.keys() %}
+    {{ key }}
+{% endfor %}
+
         <li>The Marks Madhav of {{marks['Madhav']}}</li>
         <li>The Marks Mahi of {{marks['Mahi']}}</li>
         <li>The Marks Anisha of {{marks['Anisha']}}</li>
