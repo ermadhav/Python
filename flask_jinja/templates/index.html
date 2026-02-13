@@ -6,16 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <ul> 
+    <ul> }
+
     {% for key in marks.keys() %}
-        {{key}}
+    <li>the marks of {{ key }} is {{ marks.get(key) }}</li>
     {% endfor %}
 
-
-        <li>The Marks Madhav of {{marks['Madhav']}}</li>
-        <li>The Marks Mahi of {{marks['Mahi']}}</li>
-        <li>The Marks Anisha of {{marks['Anisha']}}</li>
-        <li>The Marks Tanishq of {{marks['Tanishq']}}</li>
 
     </ul>
 </body>
