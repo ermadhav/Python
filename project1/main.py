@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -6,8 +6,10 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/create")
+@app.route("/create", methods=['GET', "POST"])
 def create():
+    if request.method == "POST":
+        print(request.files)
     return render_template("create.html")
 
 @app.route("/gallery")
