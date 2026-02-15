@@ -13,8 +13,9 @@ def create():
     if request.method == "POST":
         print(request.files.keys())
         for key, value in request.files.item():
+            print(key, value)
         
-    return render_template("create.html")
+    return render_template("create.html", myid = myid)
 
 @app.route("/gallery")
 def gallery():
