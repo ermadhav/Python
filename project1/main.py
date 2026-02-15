@@ -15,7 +15,7 @@ def home():
 
 @app.route("/create", methods=['GET', "POST"])
 def create():
-    myid = uuid.uuid1()
+    myid = str(uuid.uuid1())
     if request.method == "POST":
         print(request.files.keys())
         rec_id = request.form.get("uuid")
@@ -24,9 +24,9 @@ def create():
             print(key, value)
             file = request.files[key]
             if file:
-            filename = secure_filename(file.filename)
-            os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], rec_id)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], rec_id,  filename))
+                filename = secure_filename(file.filename)
+                os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], rec_id))
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], rec_id,  filename))
 
 
         
