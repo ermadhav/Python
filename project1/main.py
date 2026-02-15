@@ -15,7 +15,7 @@ def home():
 
 @app.route("/create", methods=['GET', "POST"])
 def create():
-    myid = str(uuid.uuid1())
+    
     if request.method == "POST":
         print(request.files.keys())
         rec_id = request.form.get("uuid")
@@ -28,7 +28,7 @@ def create():
                 if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], rec_id)):
                     os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], rec_id))
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], rec_id, filename))
-
+    myid = str(uuid.uuid1())
     return render_template("create.html", myid=myid)
 
 @app.route("/gallery")
