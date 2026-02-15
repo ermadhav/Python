@@ -12,6 +12,8 @@ def create():
     myid = uuid.uuid1()
     if request.method == "POST":
         print(request.files.keys())
+        print(request.form.get("uuid"))
+        print(request.form.get("text"))
         for key, value in request.files.items():
             print(key, value)
 
