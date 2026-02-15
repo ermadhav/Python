@@ -28,6 +28,9 @@ def create():
                 if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], rec_id)):
                     os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], rec_id))
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], rec_id, filename))
+
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], rec_id, "desc.txt")) as f:
+                f.write(desc)
     myid = str(uuid.uuid1())
     return render_template("create.html", myid=myid)
 
