@@ -1,15 +1,13 @@
 from flask import Flask, render_template, request
 import uuid
-
+import os
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = '/path/to/the/uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+UPLOAD_FOLDER = 'user_uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-app = Flask(__name__)
 
 @app.route("/")
 def home():
@@ -24,7 +22,11 @@ def create():
         desc = request.form.get("text")
         for key, value in request.files.items():
             print(key, value)
-
+            file = request.files[key]
+            if file:
+            filename = secure_filename(file.filename)
+            os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], rec_id)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], rec_id,  filename))
 
 
         
