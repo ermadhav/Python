@@ -25,12 +25,11 @@ def create():
             file = request.files[key]
             if file:
                 filename = secure_filename(file.filename)
-                os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], rec_id))
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], rec_id,  filename))
+                if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], rec_id)):
+                    os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], rec_id))
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], rec_id, filename))
 
-
-        
-    return render_template("create.html", myid = myid)
+    return render_template("create.html", myid=myid)
 
 @app.route("/gallery")
 def gallery():
