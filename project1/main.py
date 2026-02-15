@@ -1,6 +1,14 @@
 from flask import Flask, render_template, request
 import uuid
 
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = '/path/to/the/uploads'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -14,11 +22,10 @@ def create():
         print(request.files.keys())
         rec_id = request.form.get("uuid")
         desc = request.form.get("text")
-
-
-        
         for key, value in request.files.items():
             print(key, value)
+
+
 
         
     return render_template("create.html", myid = myid)
