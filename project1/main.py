@@ -9,6 +9,7 @@ def home():
 
 @app.route("/create", methods=['GET', "POST"])
 def create():
+    myid = uuid.uuid1()
     if request.method == "POST":
         print(request.files.keys())
         for key, value in request.files.item():
