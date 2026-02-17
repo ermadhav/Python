@@ -1,8 +1,11 @@
 import os 
-
+from text_to_audio import text_to_speech_file
 
 def text_to_audio(folder):
     print("TTA - ", folder)
+    with open(f"user_uploads/{folder}/desc.txt") as f:
+        text = f.read()
+    print(text, folder)
 
 def create_reel(folder):
     print("CR - ", folder)
@@ -19,3 +22,4 @@ if __name__ == "__main__":
             create_reel(folder) 
             with open("done.txt", "a") as f:
                 f.write(folder + "\n")
+    time.sleep(4)
