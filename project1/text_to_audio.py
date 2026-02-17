@@ -24,7 +24,11 @@ def text_to_speech_file(text: str, folder: str) -> str:
             speed=1.0,
         ),
     )
-    save_file_path = os.path.join(f"user_uploads/{folder}", "audio.mp3")
+    dir_path = f"user_uploads/{folder}"
+    os.makedirs(dir_path, exist_ok=True)
+
+    save_file_path = os.path.join(dir_path, "audio.mp3")
+
 
     with open(save_file_path, "wb") as f:
         for chunk in response:
