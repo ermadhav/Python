@@ -1,4 +1,3 @@
-
 import os
 import uuid
 from elevenlabs import VoiceSettings
@@ -35,5 +34,3 @@ def text_to_speech_file(text: str, folder: str) -> str:
     print(f"{save_file_path}: A new audio file was saved successfully!")
 
     return save_file_path
-
-
