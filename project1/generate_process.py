@@ -9,6 +9,9 @@ if __name__ == "__main__":
         folder = f.readline()
 
     folders = os.listdir("user_uploads")
-    folder = "588....."
-    text_to_audio(folder)
-    create_reel(folder)
+    for folder in folders:
+        if(folder not in done_folders)
+        folder = "588....."
+        text_to_audio(folder)
+        create_reel(folder)
+    
