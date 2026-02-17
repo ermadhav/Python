@@ -16,6 +16,6 @@ if __name__ == "__main__":
     for folder in folders:
         if(folder not in done_folders): 
             text_to_audio(folder) 
-            create_reel(folder) # 
+            create_reel(folder) 
             with open("done.txt", "a") as f:
                 f.write(folder + "\n")
