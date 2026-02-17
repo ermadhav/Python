@@ -11,15 +11,17 @@ def create_reel(folder):
     print("CR - ", folder)
 
 if __name__ == "__main__":
-    with open("done.txt", "r") as f:
-        done_folders = f.readlines()
+    while True:
+        print("Processing queue...")
+        with open("done.txt", "r") as f:
+            done_folders = f.readlines()
 
-    done_folders = [f.strip() for f in done_folders]
-    folders = os.listdir("user_uploads") 
-    for folder in folders:
-        if(folder not in done_folders): 
-            text_to_audio(folder) 
-            create_reel(folder) 
-            with open("done.txt", "a") as f:
-                f.write(folder + "\n")
-    time.sleep(4)
+        done_folders = [f.strip() for f in done_folders]
+        folders = os.listdir("user_uploads") 
+        for folder in folders:
+            if(folder not in done_folders): 
+                text_to_audio(folder) 
+                create_reel(folder) 
+                with open("done.txt", "a") as f:
+                    f.write(folder + "\n")
+        time.sleep(4)
