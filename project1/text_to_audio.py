@@ -34,3 +34,6 @@ def text_to_speech_file(text: str, folder: str) -> str:
     print(f"{save_file_path}: A new audio file was saved successfully!")
 
     return save_file_path
+
+
+text_to_speech_file("Best python course")
