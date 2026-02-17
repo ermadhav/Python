@@ -15,7 +15,7 @@ if __name__ == "__main__":
     folders = os.listdir("user_uploads") 
     for folder in folders:
         if(folder not in done_folders): 
-            text_to_audio(folder) # Generate the audio.mp3 from desc.txt
+            text_to_audio(folder) 
             create_reel(folder) # Convert the images and audio.mp3 inside the folder to a reel
             with open("done.txt", "a") as f:
                 f.write(folder + "\n")
