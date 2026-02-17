@@ -33,7 +33,7 @@ def create():
                 
     myid = str(uuid.uuid1())
     return render_template("create.html", myid=myid)
-
+    
 @app.route("/gallery")
 def gallery():
     return render_template("gallery.html")
