@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import uuid
 import os
 from werkzeug.utils import secure_filename
-from generate_process import generate_reel  # ✅ IMPORTANT
+from generate_process import generate_reel  
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -12,7 +12,6 @@ OUTPUT_FOLDER = os.path.join(BASE_DIR, 'static', 'output')
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Ensure folders exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
@@ -33,18 +32,15 @@ def create():
         folder_path = os.path.join(app.config['UPLOAD_FOLDER'], rec_id)
         os.makedirs(folder_path, exist_ok=True)
 
-        # Save images
         for file in request.files.values():
             if file and file.filename:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(folder_path, filename))
 
-        # Save description
         if desc:
             with open(os.path.join(folder_path, "desc.txt"), "w", encoding="utf-8") as f:
                 f.write(desc)
 
-        # ✅ Generate reel
         video = generate_reel(folder_path)
 
     myid = str(uuid.uuid1())
