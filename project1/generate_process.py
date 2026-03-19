@@ -1,64 +1,43 @@
-# import os 
-# from text_to_audio import text_to_speech_file
+import os
+import cv2
 
-# def text_to_audio(folder):
-#     print("TTA - ", folder)
-#     with open(f"user_uploads/{folder}/desc.txt") as f:
-#         text = f.read()
-#     print(text, folder)
+def generate_reel(folder_path):
+    images = []
 
-# def create_reel(folder):
-#     print("CR - ", folder)
+    # Collect image files
+    for file in os.listdir(folder_path):
+        if file.lower().endswith(('.png', '.jpg', '.jpeg')):
+            images.append(os.path.join(folder_path, file))
 
-# if __name__ == "__main__":
-#     while True:
-#         print("Processing queue...")
-#         with open("done.txt", "r") as f:
-#             done_folders = f.readlines()
+    if not images:
+        return None
 
-#         done_folders = [f.strip() for f in done_folders]
-#         folders = os.listdir("user_uploads") 
-#         for folder in folders:
-#             if(folder not in done_folders): 
-#                 text_to_audio(folder) 
-#                 create_reel(folder) 
-#                 with open("done.txt", "a") as f:
-#                     f.write(folder + "\n")
-#         time.sleep(4)
+    # Sort images (optional)
+    images.sort()
 
+    # Read first image to get size
+    frame = cv2.imread(images[0])
+    height, width, _ = frame.shape
 
-# This file looks for new folders inside user uploads and converts them to reel if they are not already converted
-import os 
-from text_to_audio import text_to_speech_file
-import time
-import subprocess
+    # Output path
+    rec_id = os.path.basename(folder_path)
+    output_dir = os.path.join("static", "output")
+    os.makedirs(output_dir, exist_ok=True)
 
+    output_path = os.path.join(output_dir, f"{rec_id}.mp4")
 
-def text_to_audio(folder):
-    print("TTA - ", folder)
-    with open(f"user_uploads/{folder}/desc.txt") as f:
-        text = f.read()
-    print(text, folder)
-    text_to_speech_file(text, folder)
+    # Video writer
+    video = cv2.VideoWriter(
+        output_path,
+        cv2.VideoWriter_fourcc(*'mp4v'),
+        1,  # 1 FPS (change if needed)
+        (width, height)
+    )
 
-def create_reel(folder):
-    command = f'''ffmpeg -f concat -safe 0 -i user_uploads/{folder}/input.txt -i user_uploads/{folder}/audio.mp3 -vf "scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black" -c:v libx264 -c:a aac -shortest -r 30 -pix_fmt yuv420p static/reels/{folder}.mp4'''
-    subprocess.run(command, shell=True, check=True)
-    
-    print("CR - ", folder)
+    for image in images:
+        frame = cv2.imread(image)
+        video.write(frame)
 
-if __name__ == "__main__":
-    while True:
-        print("Processing queue...")
-        with open("done.txt", "r") as f:
-            done_folders = f.readlines()
+    video.release()
 
-        done_folders = [f.strip() for f in done_folders]
-        folders = os.listdir("user_uploads") 
-        for folder in folders:
-            if(folder not in done_folders): 
-                text_to_audio(folder) # Generate the audio.mp3 from desc.txt
-                create_reel(folder) # Convert the images and audio.mp3 inside the folder to a reel
-                with open("done.txt", "a") as f:
-                    f.write(folder + "\n")
-        time.sleep(4)
+    return f"output/{rec_id}.mp4"

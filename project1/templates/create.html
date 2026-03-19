@@ -60,3 +60,10 @@
     }
 </script>
 {% endblock %} 
+
+{% if video %}
+    <h2>Your Generated Reel 🎬</h2>
+    <video width="400" controls autoplay>
+        <source src="{{ url_for('static', filename=video) }}" type="video/mp4">
+    </video>
+{% endif %}
