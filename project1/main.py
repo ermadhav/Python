@@ -1,57 +1,64 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import uuid
-import os
 from werkzeug.utils import secure_filename
-from generate_process import generate_reel  
+import os
+from generate_process import text_to_audio, create_reel
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-UPLOAD_FOLDER = os.path.join(BASE_DIR, 'user_uploads')
-OUTPUT_FOLDER = os.path.join(BASE_DIR, 'static', 'output')
+UPLOAD_FOLDER = 'user_uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
-
+ 
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-
-@app.route("/create", methods=['GET', "POST"])
+@app.route("/create", methods=["GET", "POST"])
 def create():
-    video = None
-
+    myid = uuid.uuid1()
     if request.method == "POST":
+        print(request.files.keys())
         rec_id = request.form.get("uuid")
         desc = request.form.get("text")
-
-        folder_path = os.path.join(app.config['UPLOAD_FOLDER'], rec_id)
-        os.makedirs(folder_path, exist_ok=True)
-
-        for file in request.files.values():
-            if file and file.filename:
+        input_files = []
+        for key, value in request.files.items():
+            print(key, value)
+            # Upload the file
+            file = request.files[key]
+            if file and file.filename != '':
                 filename = secure_filename(file.filename)
-                file.save(os.path.join(folder_path, filename))
+                if(not(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], rec_id)))):
+                    os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], rec_id))
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], rec_id,  filename))
+                input_files.append(filename)
+                print(filename)
+                
+        # Ensure directory exists
+        if(not(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], rec_id)))):
+            os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], rec_id))
+            
+        # Capture the description and save it to a file
+        with open(os.path.join(app.config['UPLOAD_FOLDER'], rec_id, "desc.txt"), "w") as f:
+            f.write(desc if desc else "")
+            
+        for fl in input_files:
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], rec_id,  "input.txt"), "a") as f:
+                f.write(f"file '{fl}'\nduration 1\n")
+                
+        # Generate the audio and reel synchronously
+        text_to_audio(rec_id)
+        create_reel(rec_id)
+        
+        return redirect(url_for('gallery'))
 
-        if desc:
-            with open(os.path.join(folder_path, "desc.txt"), "w", encoding="utf-8") as f:
-                f.write(desc)
-
-        video = generate_reel(folder_path)
-
-    myid = str(uuid.uuid1())
-    return render_template("create.html", myid=myid, video=video)
-
+    return render_template("create.html", myid=myid)
 
 @app.route("/gallery")
 def gallery():
-    videos = os.listdir(OUTPUT_FOLDER)
-    return render_template("gallery.html", videos=videos)
+    reels = os.listdir("static/reels")
+    print(reels)
+    return render_template("gallery.html", reels=reels)
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
+app.run(debug=True)

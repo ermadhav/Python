@@ -13,12 +13,12 @@
             <h1 class="upload-title">Create Your Reel</h1>
             <p class="upload-instructions">Upload your video files to create an amazing reel. You can upload multiple files.</p>
             
-            <form action="/create" enctype="multipart/form-data" method="post" class="dropzone" id="myDropzone">
+            <form action="/create" enctype="multipart/form-data" method="post" class="dropzone" id="myDropzone" >
                 <div class="fallback">
                     <div id="fileInputs">
                         <div class="file-input-group">
                             <input name="file1" type="file" class="file-input" />
-                            <input type="hidden" name="uuid" value="{{myid}}">
+                            <input name="uuid" type="hidden" value="{{myid}}">
                             <button type="button" class="remove-file-btn" onclick="removeFileInput(this)" disabled>×</button>
                         </div>
                     </div>
@@ -60,10 +60,3 @@
     }
 </script>
 {% endblock %} 
-
-{% if video %}
-    <h2>Your Generated Reel 🎬</h2>
-    <video width="400" controls autoplay>
-        <source src="{{ url_for('static', filename=video) }}" type="video/mp4">
-    </video>
-{% endif %}
