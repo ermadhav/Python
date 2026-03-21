@@ -12,7 +12,7 @@
 
         <label class="upload-box">
             <input type="file" name="images" multiple id="fileInput">
-            <p>Click or Drag Images</p>
+            <p>📁 Drag & Drop or Click to Upload Images</p>
         </label>
 
         <div id="preview"></div>
@@ -29,16 +29,16 @@
 
 {% block extra_js %}
 <script>
-const input = document.getElementById("fileInput");
-const preview = document.getElementById("preview");
+    const input = document.getElementById("fileInput");
+    const preview = document.getElementById("preview");
 
-input.addEventListener("change", () => {
-    preview.innerHTML = "";
-    [...input.files].forEach(file => {
-        const img = document.createElement("img");
-        img.src = URL.createObjectURL(file);
-        preview.appendChild(img);
+    input.addEventListener("change", () => {
+        preview.innerHTML = "";
+        [...input.files].forEach(file => {
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(file);
+            preview.appendChild(img);
+        });
     });
-});
 </script>
 {% endblock %}
